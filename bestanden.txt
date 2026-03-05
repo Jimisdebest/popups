@@ -1,20 +1,4 @@
 De coolste jongen.mp4
 Error 1.mp3
 Error soundeffects.mp3
-bestanden/1.png
-bestanden/2.png
-bestanden/3.png
-bestanden/4.png
-bestanden/5.png
-bestanden/6.png
-bestanden/7.png
-bestanden/8.png
-bestanden/9.png
-bestanden/10.png
-bestanden/11.png
-bestanden/12.png
-bestanden/13.png
-bestanden/14.png
-bestanden/15.png
-bestanden/16.png
-bestanden/17.png
+Alarm.mp3
