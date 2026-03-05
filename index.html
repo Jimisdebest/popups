@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Aanval Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            color: #856404;
+            text-align: left;
+        }
+
+        .warning-box h3 {
+            margin-bottom: 10px;
+            color: #533f03;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box ul {
+            list-style-position: inside;
+            margin-left: 10px;
+        }
+
+        .warning-box li {
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-start:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-start:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .btn-start:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #ccc;
+        }
+
+        .status-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .status-value {
+            color: #007bff;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .status-value.warning {
+            color: #dc3545;
+        }
+
+        .shortcut-info {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+
+        .keyboard-key {
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-family: monospace;
+            font-weight: 600;
+            box-shadow: 0 2px 0 #ced4da;
+            margin: 0 2px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .popup-counter {
+            font-size: 2em;
+            font-weight: 700;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Popup Aanval Simulator</h1>
+        
+        <div class="warning-box">
+            <h3>⚠️ Veiligheidswaarschuwing</h3>
+            <ul>
+                <li>Deze website opent ECHTE popupvensters</li>
+                <li>Zorg dat je popup-blocker is UITGESCHAKELD</li>
+                <li>Druk op <span class="keyboard-key">Ctrl</span> + <span class="keyboard-key">Z</span> om ALLE vensters te sluiten</li>
+                <li>De popups stoppen automatisch na het indrukken van Ctrl+Z</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <button class="btn btn-start" id="startBtn">🚀 Start Popup Aanval</button>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-item">
+                <span class="status-label">Status:</span>
+                <span class="status-value" id="statusText">⏸️ Gestopt</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Aantal popups:</span>
+                <span class="status-value popup-counter" id="counter">0</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Noodstop:</span>
+                <span class="status-value warning" id="shortcutStatus">Ctrl+Z</span>
+            </div>
+        </div>
+
+        <div class="shortcut-info">
+            <p><strong>📋 Instructies:</strong></p>
+            <p>1. Klik op "Start Popup Aanval" om te beginnen</p>
+            <p>2. Er verschijnen oneindig veel popupvensters</p>
+            <p>3. Druk op <span class="keyboard-key">Ctrl</span> + <span class="keyboard-key">Z</span> om te stoppen</p>
+            <p>4. Alle vensters sluiten automatisch</p>
+        </div>
+
+        <div class="footer">
+            ⚡ Veilig ontworpen - Alleen te stoppen met Ctrl+Z
+        </div>
+    </div>
+
+    <script>
+        // Variabelen voor de popup attack
+        let attackInterval = null;
+        let popupWindows = [];
+        let isAttacking = false;
+        let windowCounter = 0;
+        let attackSpeed = 100; // milliseconden tussen popups
+
+        // DOM elementen
+        const startBtn = document.getElementById('startBtn');
+        const statusText = document.getElementById('statusText');
+        const counterElement = document.getElementById('counter');
+
+        // Functie om een nieuwe popup te openen
+        function openPopup() {
+            if (!isAttacking) return;
+
+            windowCounter++;
+            counterElement.textContent = windowCounter;
+
+            // Willekeurige grootte en positie voor variatie
+            const width = Math.floor(Math.random() * 300) + 200;
+            const height = Math.floor(Math.random() * 300) + 200;
+            const left = Math.floor(Math.random() * (window.screen.width - width));
+            const top = Math.floor(Math.random() * (window.screen.height - height));
+
+            // Willekeurige content voor de popup
+            const popupNumber = windowCounter;
+            const colors = ['ff6b6b', '4ecdc4', '45b7d1', '96ceb4', 'ffeead', 'ffcc5c', 'ff6f69'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`;
+            
+            try {
+                const popup = window.open('', `popup_${popupNumber}`, features);
+                
+                if (popup) {
+                    // Schrijf HTML naar de popup
+                    popup.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Popup #${popupNumber}</title>
+                            <style>
+                                body {
+                                    margin: 0;
+                                    padding: 20px;
+                                    font-family: Arial, sans-serif;
+                                    background: #${randomColor};
+                                    color: white;
+                                    text-align: center;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: 100vh;
+                                    overflow: hidden;
+                                }
+                                h1 {
+                                    font-size: 2em;
+                                    margin-bottom: 10px;
+                                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                                }
+                                .counter {
+                                    font-size: 1.2em;
+                                    opacity: 0.9;
+                                }
+                                .warning {
+                                    position: absolute;
+                                    bottom: 10px;
+                                    font-size: 0.8em;
+                                    opacity: 0.7;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>⚠️ Popup #${popupNumber}</h1>
+                            <div class="counter">Deel van de oneindige aanval</div>
+                            <div class="warning">Druk Ctrl+Z in hoofdvenster om te stoppen</div>
+                            <script>
+                                // Voorkom dat de popup zichzelf sluit
+                                window.onbeforeunload = function() {
+                                    return "Deze popup hoort bij de aanval";
+                                };
+                            <\/script>
+                        </body>
+                        </html>
+                    `);
+                    
+                    popupWindows.push(popup);
+                    
+                    // Controleer of de popup nog open is
+                    const checkPopup = setInterval(() => {
+                        if (popup.closed) {
+                            const index = popupWindows.indexOf(popup);
+                            if (index > -1) {
+                                popupWindows.splice(index, 1);
+                                windowCounter--;
+                                counterElement.textContent = windowCounter;
+                            }
+                            clearInterval(checkPopup);
+                        }
+                    }, 1000);
+                }
+            } catch (e) {
+                console.log('Popup geblokkeerd? Zet je popup-blocker uit!');
+            }
+        }
+
+        // Functie om de aanval te starten
+        function startAttack() {
+            if (isAttacking) return;
+            
+            // Test of popups werken
+            const testPopup = window.open('', 'test', 'width=1,height=1');
+            if (!testPopup || testPopup.closed) {
+                alert('⚠️ Popup-blocker gedetecteerd!\n\nSchakel je popup-blocker uit om deze demo te kunnen gebruiken.\n\nIn de meeste browsers kun je tijdelijk popups toestaan voor deze site.');
+                return;
+            }
+            testPopup.close();
+
+            isAttacking = true;
+            startBtn.disabled = true;
+            statusText.innerHTML = '🔥 AANVAL BEZIG';
+            statusText.style.color = '#dc3545';
+            
+            // Open direct de eerste popup
+            openPopup();
+            
+            // Start oneindige popup stroom
+            attackInterval = setInterval(openPopup, attackSpeed);
+        }
+
+        // Functie om alle popups te sluiten en de aanval te stoppen
+        function stopAttack() {
+            if (!isAttacking && popupWindows.length === 0) return;
+            
+            // Stop met nieuwe popups openen
+            if (attackInterval) {
+                clearInterval(attackInterval);
+                attackInterval = null;
+            }
+            
+            // Sluit alle bestaande popups
+            popupWindows.forEach(popup => {
+                try {
+                    if (popup && !popup.closed) {
+                        popup.close();
+                    }
+                } catch (e) {
+                    // Negeer fouten bij sluiten
+                }
+            });
+            
+            // Leeg de array
+            popupWindows = [];
+            windowCounter = 0;
+            isAttacking = false;
+            
+            // Update UI
+            startBtn.disabled = false;
+            statusText.innerHTML = '⏸️ Gestopt';
+            statusText.style.color = '';
+            counterElement.textContent = '0';
+        }
+
+        // Event listener voor de start knop
+        startBtn.addEventListener('click', startAttack);
+
+        // Event listener voor Ctrl+Z
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+Z (of Cmd+Z op Mac)
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                e.preventDefault(); // Voorkom de standaard undo actie
+                stopAttack();
+                
+                // Geef visuele feedback
+                const shortcutStatus = document.getElementById('shortcutStatus');
+                const originalText = shortcutStatus.textContent;
+                shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
+                shortcutStatus.style.color = '#28a745';
+                
+                setTimeout(() => {
+                    shortcutStatus.textContent = originalText;
+                    shortcutStatus.style.color = '#dc3545';
+                }, 2000);
+            }
+        });
+
+        // Voorkom dat de pagina per ongeluk wordt verlaten tijdens een aanval
+        window.addEventListener('beforeunload', (e) => {
+            if (isAttacking) {
+                e.preventDefault();
+                e.returnValue = 'Er is nog een popup aanval bezig. Weet je zeker dat je wilt stoppen?';
+                return e.returnValue;
+            }
+        });
+
+        // Cleanup bij verlaten van de pagina
+        window.addEventListener('unload', () => {
+            stopAttack();
+        });
+
+        // Extra veiligheid: stop aanval als de pagina verborgen wordt
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isAttacking) {
+                stopAttack();
+            }
+        });
+    </script>
+</body>
+</html>
