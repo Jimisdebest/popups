@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEHACKT</title>
+    <title>💀 ULTIMATE TERROR POPUP AANVAL 💀</title>
     <style>
         * {
             margin: 0;
@@ -12,66 +12,102 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff0000 0%, #000000 100%);
+            font-family: 'Creepy', 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, #8b0000 0%, #000000 50%, #4b0082 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
             padding: 20px;
-            animation: bgPulse 2s infinite;
+            animation: bgHell 3s infinite;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes bgPulse {
-            0% { background: linear-gradient(135deg, #ff0000 0%, #000000 100%); }
-            50% { background: linear-gradient(135deg, #000000 0%, #ff0000 100%); }
-            100% { background: linear-gradient(135deg, #ff0000 0%, #000000 100%); }
+        body::before {
+            content: "💀🔥👿💀🔥👿";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            font-size: 50px;
+            color: rgba(255,0,0,0.05);
+            white-space: nowrap;
+            animation: moveText 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes moveText {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        @keyframes bgHell {
+            0% { filter: hue-rotate(0deg); }
+            25% { filter: hue-rotate(10deg) contrast(150%); }
+            50% { filter: hue-rotate(20deg) brightness(150%); }
+            75% { filter: hue-rotate(10deg) contrast(150%); }
+            100% { filter: hue-rotate(0deg); }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(20, 20, 20, 0.95);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            max-width: 800px;
+            box-shadow: 0 0 50px #ff0000, 0 0 100px #8b0000;
+            max-width: 900px;
             width: 100%;
             text-align: center;
-            border: 3px solid #ff0000;
+            border: 5px solid #ff0000;
+            position: relative;
+            z-index: 1;
+            animation: containerPulse 2s infinite;
+        }
+
+        @keyframes containerPulse {
+            0% { box-shadow: 0 0 50px #ff0000; }
+            50% { box-shadow: 0 0 100px #ff0000, 0 0 150px #8b0000; }
+            100% { box-shadow: 0 0 50px #ff0000; }
         }
 
         h1 {
             color: #ff0000;
             margin-bottom: 20px;
-            font-size: 3em;
+            font-size: 3.5em;
             text-transform: uppercase;
-            text-shadow: 3px 3px 0 #000000;
-            animation: shake 0.5s infinite;
+            text-shadow: 5px 5px 0 #000000, 0 0 20px #ff0000;
+            animation: textShake 0.3s infinite;
+            letter-spacing: 5px;
         }
 
-        @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            25% { transform: translate(-1px, -2px); }
-            50% { transform: translate(-3px, 0px); }
-            75% { transform: translate(3px, 2px); }
-            100% { transform: translate(1px, -1px); }
+        @keyframes textShake {
+            0% { transform: translate(2px, 2px); }
+            25% { transform: translate(-2px, -3px); }
+            50% { transform: translate(-3px, 2px); }
+            75% { transform: translate(3px, -2px); }
+            100% { transform: translate(2px, -1px); }
         }
 
         .warning-box {
-            background: #000000;
-            border: 3px solid #ff0000;
-            border-radius: 10px;
-            padding: 20px;
+            background: #1a0000;
+            border: 5px solid #ff0000;
+            border-radius: 15px;
+            padding: 25px;
             margin: 25px 0;
-            color: #ff0000;
+            color: #ff6666;
             text-align: left;
             font-weight: bold;
+            box-shadow: inset 0 0 30px #8b0000;
         }
 
         .warning-box h3 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ffffff;
-            font-size: 1.5em;
+            font-size: 2em;
+            text-shadow: 2px 2px 0 #ff0000;
         }
 
         .warning-box ul {
@@ -80,43 +116,48 @@
         }
 
         .warning-box li {
-            margin: 8px 0;
-            line-height: 1.4;
-            color: #ffffff;
+            margin: 12px 0;
+            line-height: 1.6;
+            color: #ff9999;
+            font-size: 1.2em;
+            list-style-type: "💀 ";
         }
 
         .repo-info {
-            background: #1a1a1a;
-            border: 2px solid #ff0000;
+            background: #2d0000;
+            border: 3px solid #ff0000;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             margin: 20px 0;
-            color: #00ff00;
+            color: #ff4444;
             text-align: left;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             word-break: break-all;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            box-shadow: 0 0 30px #8b0000;
         }
 
         .file-list {
-            background: #1a1a1a;
+            background: #1a0000;
             border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            max-height: 200px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 250px;
             overflow-y: auto;
             text-align: left;
-            border: 2px solid #ff0000;
-            color: #00ff00;
+            border: 3px solid #ff0000;
+            color: #ff4444;
+            box-shadow: inset 0 0 20px #330000;
         }
 
         .file-list h4 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.2em;
+            font-size: 1.5em;
+            text-shadow: 2px 2px 0 #ff0000;
         }
 
         .file-list ul {
@@ -124,25 +165,30 @@
         }
 
         .file-list li {
-            padding: 8px 10px;
-            border-bottom: 1px solid #ff0000;
-            font-family: monospace;
-            color: #00ff00;
-            font-size: 1.1em;
+            padding: 10px 15px;
+            border-bottom: 2px solid #ff0000;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            animation: listFlicker 2s infinite;
         }
 
-        .file-list li:last-child {
-            border-bottom: none;
+        @keyframes listFlicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; background: #330000; }
+            100% { opacity: 1; }
         }
 
         .file-list li.video {
             color: #ff6b6b;
+            text-shadow: 0 0 10px #ff0000;
         }
         .file-list li.image {
             color: #ffd93d;
+            text-shadow: 0 0 10px #ffaa00;
         }
         .file-list li.audio {
-            color: #6bff6b;
+            color: #ff44ff;
+            text-shadow: 0 0 10px #ff00ff;
         }
 
         .button-container {
@@ -154,51 +200,63 @@
         }
 
         .btn {
-            padding: 20px 40px;
+            padding: 25px 50px;
             border: none;
             border-radius: 50px;
-            font-size: 1.5em;
-            font-weight: 800;
+            font-size: 2em;
+            font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 8px 25px rgba(255,0,0,0.5);
-            min-width: 300px;
+            letter-spacing: 3px;
+            box-shadow: 0 0 30px #ff0000;
+            min-width: 400px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-start {
-            background: linear-gradient(135deg, #ff0000 0%, #000000 100%);
+            background: linear-gradient(135deg, #ff0000 0%, #8b0000 50%, #4b0000 100%);
             color: white;
-            border: 2px solid #ffffff;
+            border: 3px solid #ffffff;
+            animation: btnPulse 1s infinite;
+        }
+
+        @keyframes btnPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px #ff0000; }
+            100% { transform: scale(1); }
         }
 
         .btn-start:hover:not(:disabled) {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px #ff0000;
+            transform: scale(1.2);
+            box-shadow: 0 0 100px #ff0000, 0 0 200px #ff4444;
+            background: linear-gradient(135deg, #ff4444 0%, #ff0000 100%);
         }
 
         .btn-start:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            background: #666;
+            background: #333;
+            animation: none;
         }
 
         .status-panel {
-            background: #1a1a1a;
-            border: 3px solid #ff0000;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
+            background: #1a0000;
+            border: 5px solid #ff0000;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: inset 0 0 40px #330000;
         }
 
         .status-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            border-bottom: 2px solid #ff0000;
-            font-size: 1.2em;
+            padding: 15px 20px;
+            border-bottom: 3px solid #ff0000;
+            font-size: 1.3em;
         }
 
         .status-item:last-child {
@@ -206,114 +264,149 @@
         }
 
         .status-label {
-            font-weight: 800;
+            font-weight: 900;
             color: #ffffff;
+            text-transform: uppercase;
         }
 
         .status-value {
-            color: #00ff00;
+            color: #ff4444;
             font-weight: 700;
-            font-size: 1.3em;
+            font-size: 1.4em;
+            text-shadow: 0 0 10px #ff0000;
         }
 
         .status-value.warning {
             color: #ff0000;
-            font-size: 1.5em;
+            font-size: 1.6em;
+            animation: emergencyBlink 0.5s infinite;
+        }
+
+        @keyframes emergencyBlink {
+            0% { opacity: 1; text-shadow: 0 0 20px #ff0000; }
+            50% { opacity: 0.5; text-shadow: 0 0 50px #ff0000; }
+            100% { opacity: 1; text-shadow: 0 0 20px #ff0000; }
         }
 
         .status-value.success {
-            color: #00ff00;
+            color: #ff44ff;
         }
 
         .progress-bar {
             width: 100%;
-            height: 30px;
-            background: #333;
-            border-radius: 15px;
+            height: 40px;
+            background: #2d0000;
+            border-radius: 20px;
             overflow: hidden;
-            margin: 15px 0;
-            border: 2px solid #ff0000;
+            margin: 20px 0;
+            border: 3px solid #ff0000;
+            position: relative;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ff0000 0%, #00ff00 100%);
+            background: linear-gradient(90deg, #ff0000 0%, #ff4444 50%, #ff0000 100%);
             width: 0%;
             transition: width 0.3s ease;
+            animation: progressGlow 1s infinite;
+        }
+
+        @keyframes progressGlow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+            100% { filter: brightness(1); }
         }
 
         .download-log {
             background: #000000;
-            color: #00ff00;
-            font-family: monospace;
-            padding: 15px;
-            border-radius: 5px;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 10px;
             text-align: left;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
-            margin-top: 10px;
-            font-size: 1em;
-            border: 2px solid #ff0000;
+            margin-top: 20px;
+            font-size: 1.1em;
+            border: 3px solid #ff0000;
+            box-shadow: inset 0 0 30px #330000;
         }
 
         .log-entry {
-            margin: 4px 0;
+            margin: 5px 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-size: 1.1em;
+            padding: 3px 0;
+            border-left: 3px solid transparent;
         }
 
         .log-entry.success {
             color: #00ff00;
+            border-left-color: #00ff00;
+            padding-left: 10px;
         }
 
         .log-entry.error {
             color: #ff0000;
+            border-left-color: #ff0000;
+            padding-left: 10px;
         }
 
         .log-entry.info {
             color: #ffff00;
+            border-left-color: #ffff00;
+            padding-left: 10px;
         }
 
         .log-entry.warning {
             color: #ff8800;
+            border-left-color: #ff8800;
+            padding-left: 10px;
         }
 
         .secret-note {
             background: #000000;
             color: #ff0000;
-            padding: 10px;
-            margin-top: 20px;
-            font-size: 0.9em;
-            border: 1px dashed #ff0000;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 1.1em;
+            border: 3px dashed #ff0000;
+            animation: noteGlow 1.5s infinite;
+        }
+
+        @keyframes noteGlow {
+            0% { border-color: #ff0000; }
+            50% { border-color: #ffffff; }
+            100% { border-color: #ff0000; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔥 ULTIMATE POPUP AANVAL 🔥</h1>
+        <h1>💀 HELL MODE ACTIVATED 💀</h1>
         
         <div class="warning-box">
-            <h3>⚠️ MAXIMALE VERNIETIGING</h3>
+            <h3>⚠️ WELKOM IN DE HEL</h3>
             <ul>
-                <li>🎬 MP4 - Volledig scherm video's</li>
-                <li>🖼️ PNG - Volledig scherm afbeeldingen</li>
-                <li>🔊 MP3 - MAXIMAAL VOLUME (niet verantwoordelijk voor speakers)</li>
-                <li>💀 Na bestanden: ONEINDIGE POPUPS zonder waarschuwing</li>
+                <li>🎬 Je krijgt videos te zien.</li>
+                <li>🖼️ Je krijgt scary plaatjes te zien</li>
+                <li>🔊 Je gaat je rot schrikken van enge geluiden</li>
+                <li>💀 En er is geen ontsnappen aan!</li>
             </ul>
         </div>
 
         <div class="repo-info">
-            <strong>📦 REPOSITORY:</strong> https://raw.githubusercontent.com/Jimisdebest/popups/refs/heads/main/<br>
-            <strong>📄 BESTANDEN.TXT:</strong> Wordt automatisch geladen<br>
-            <strong>🎯 MODE:</strong> Volledig scherm + Max volume
+            <strong>🔥 HELL REPOSITORY:</strong> https://raw.githubusercontent.com/Jimisdebest/popups/refs/heads/main/<br>
+            <strong>📋 VERDOEMENIS LIJST:</strong> bestanden.txt<br>
+            <strong>⚡ MODE:</strong> ULTIMATE TERROR
         </div>
 
         <div class="file-list">
-            <h4>📋 GELADEN BESTANDEN <span id="fileCount">(0)</span></h4>
+            <h4>💀 SLACHTOFFERS <span id="fileCount">(0)</span></h4>
             <ul id="fileList">
-                <li><em>Laden bij start...</em></li>
+                <li><em>Laden bij start van de hel...</em></li>
             </ul>
         </div>
 
@@ -322,39 +415,36 @@
         </div>
 
         <div class="button-container">
-            <button class="btn btn-start" id="startBtn">💀 START VERNIETIGING 💀</button>
+            <button class="btn btn-start" id="startBtn">💀 START DE HEL 💀</button>
         </div>
 
         <div class="status-panel">
             <div class="status-item">
-                <span class="status-label">FASE:</span>
-                <span class="status-value" id="statusText">⏸️ GESTOPT</span>
+                <span class="status-label">HELL STATUS:</span>
+                <span class="status-value" id="statusText">⏸️ INACTIEF</span>
             </div>
             <div class="status-item">
-                <span class="status-label">VOORTGANG:</span>
+                <span class="status-label">VERDOEMENIS:</span>
                 <span class="status-value" id="progressText">0/0</span>
             </div>
             <div class="status-item">
-                <span class="status-label">HUIDIG:</span>
+                <span class="status-label">HUIDIGE MARTELING:</span>
                 <span class="status-value" id="currentFile">-</span>
             </div>
             <div class="status-item">
-                <span class="status-label">ACTIEVE POPUPS:</span>
+                <span class="status-label">ACTIEVE ZIELEN:</span>
                 <span class="status-value popup-counter" id="popupCounter">0</span>
             </div>
             <div class="status-item">
                 <span class="status-label">NOODSTOP:</span>
-                <span class="status-value warning" id="shortcutStatus">ALLEEN HIER Ctrl+Z</span>
+                <span class="status-value warning" id="shortcutStatus">Niet mogelijk</span>
             </div>
         </div>
 
         <div class="download-log" id="downloadLog">
-            <div class="log-entry info">💀 KLIK OP START OM HET EINDE IN TE LUIDEN...</div>
+            <div class="log-entry info">💀 WACHT OP JE VONNIS... KLIK OP DE KNOP</div>
         </div>
 
-        <div class="secret-note">
-            🔴 NA BESTANDEN: ONEINDIGE POPUPS ZONDER STOP OPTIE (ALLEEN CTRL+Z IN DIT VENSTER WERKT)
-        </div>
     </div>
 
     <script>
@@ -369,6 +459,7 @@
         let popupCounter = 0;
         let infiniteAttackInterval = null;
         let processedFiles = [];
+        let activeAudioPopups = []; // Voor MP3's die blijven spelen
         
         // DOM elementen
         const startBtn = document.getElementById('startBtn');
@@ -397,11 +488,11 @@
         // Functie om bestanden.txt te laden
         async function loadFilesTxt() {
             try {
-                addLog('📥 Laden van bestanden.txt...', 'info');
+                addLog('📥 Openen van bestanden uit de hel...', 'info');
                 const response = await fetch(`${REPO_URL}bestanden.txt`);
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
+                    throw new Error(`HTTP ${response.status} - DE HEL WIL NIET OPENEN`);
                 }
                 
                 const text = await response.text();
@@ -429,24 +520,412 @@
                 fileCount.textContent = `(${downloadQueue.length})`;
                 progressText.textContent = `0/${downloadQueue.length}`;
                 
-                addLog(`✅ ${downloadQueue.length} bestanden gevonden: ${downloadQueue.join(', ')}`, 'success');
+                addLog(`✅ ${downloadQueue.length} zielen gevonden: ${downloadQueue.join(', ')}`, 'success');
                 
                 return true;
                 
             } catch (error) {
-                addLog(`❌ Fout: ${error.message}`, 'error');
+                addLog(`❌ HEL FOUT: ${error.message}`, 'error');
                 fileList.innerHTML = `<li><em>FOUT: ${error.message}</em></li>`;
                 fileCount.textContent = '(0)';
                 return false;
             }
         }
 
-        // Functie om bestand te downloaden en fullscreen te tonen
-        async function downloadAndShowFile() {
+        // Functie om HEFTIGE popup te maken
+        function createHellPopup(fileName, fileUrl, fileExt, isAudio = false) {
+            // Bijna volledig scherm
+            const width = window.screen.width - 20;
+            const height = window.screen.height - 20;
+            const left = 0;
+            const top = 0;
+            
+            const features = `width=${width},height=${height},left=${left},top=${top},fullscreen=yes,scrollbars=no,resizable=no,status=no,toolbar=no,menubar=no,location=no`;
+            
+            try {
+                const popup = window.open('', `hell_${fileName.replace(/[^a-z0-9]/gi, '_')}_${Date.now()}`, features);
+                
+                if (popup) {
+                    popupCounter++;
+                    popupCounterElement.textContent = popupCounter;
+                    
+                    // Basis heftige styling
+                    let popupContent = '';
+                    
+                    if (fileExt === 'mp4') {
+                        popupContent = `
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>🔥 HELL VIDEO: ${fileName} 🔥</title>
+                                <style>
+                                    @keyframes hellBackground {
+                                        0% { background: black; }
+                                        25% { background: #8b0000; }
+                                        50% { background: #4b0000; }
+                                        75% { background: #2d0000; }
+                                        100% { background: black; }
+                                    }
+                                    body {
+                                        margin: 0;
+                                        padding: 0;
+                                        overflow: hidden;
+                                        animation: hellBackground 2s infinite;
+                                        position: relative;
+                                    }
+                                    body::before {
+                                        content: "🔥👿🔥👿🔥👿🔥👿";
+                                        position: absolute;
+                                        top: 10px;
+                                        left: 0;
+                                        right: 0;
+                                        text-align: center;
+                                        color: rgba(255,0,0,0.3);
+                                        font-size: 30px;
+                                        z-index: 10;
+                                        pointer-events: none;
+                                        animation: textFloat 3s infinite;
+                                    }
+                                    body::after {
+                                        content: "💀💀💀💀💀💀💀💀";
+                                        position: absolute;
+                                        bottom: 10px;
+                                        left: 0;
+                                        right: 0;
+                                        text-align: center;
+                                        color: rgba(255,0,0,0.3);
+                                        font-size: 30px;
+                                        z-index: 10;
+                                        pointer-events: none;
+                                        animation: textFloat 3s infinite reverse;
+                                    }
+                                    @keyframes textFloat {
+                                        0% { transform: translateY(0); opacity: 0.3; }
+                                        50% { transform: translateY(-10px); opacity: 0.6; }
+                                        100% { transform: translateY(0); opacity: 0.3; }
+                                    }
+                                    video {
+                                        width: 100vw;
+                                        height: 100vh;
+                                        object-fit: contain;
+                                        position: relative;
+                                        z-index: 5;
+                                        filter: drop-shadow(0 0 50px red) brightness(1.2);
+                                    }
+                                    .hell-overlay {
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        bottom: 0;
+                                        background: radial-gradient(circle, transparent 30%, rgba(255,0,0,0.2) 100%);
+                                        pointer-events: none;
+                                        z-index: 20;
+                                        animation: overlayPulse 3s infinite;
+                                    }
+                                    @keyframes overlayPulse {
+                                        0% { opacity: 0.3; }
+                                        50% { opacity: 0.7; }
+                                        100% { opacity: 0.3; }
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <video src="${fileUrl}" autoplay loop controls controlslist="nodownload nofullscreen noremoteplayback" style="width:100vw; height:100vh;"></video>
+                                <div class="hell-overlay"></div>
+                                <script>
+                                    // Video blijft spelen en kan niet worden gestopt
+                                    const video = document.querySelector('video');
+                                    video.volume = 1.0;
+                                    
+                                    // Voorkom sluiten van de popup
+                                    window.onbeforeunload = function() {
+                                        return "🔥 GEEN ONTSNAPPEN UIT DE HEL 🔥";
+                                    };
+                                    
+                                    // Ctrl+Z WERKT STIEKEM WEL (maar staat niet in de UI)
+                                    document.addEventListener('keydown', function(e) {
+                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                                            e.preventDefault();
+                                            // Stille stop - geen indicatie in popup
+                                            if (window.opener && !window.opener.closed) {
+                                                window.opener.stopAttack('video popup');
+                                            }
+                                        }
+                                    });
+                                    
+                                    // Voorkom dat gebruiker weg kan
+                                    document.addEventListener('keydown', function(e) {
+                                        if (e.key === 'Escape' || e.key === 'F11' || (e.altKey && e.key === 'F4')) {
+                                            e.preventDefault();
+                                        }
+                                    }, true);
+                                <\/script>
+                            </body>
+                            </html>
+                        `;
+                    } else if (fileExt === 'png') {
+                        popupContent = `
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>👿 HELL IMAGE: ${fileName} 👿</title>
+                                <style>
+                                    @keyframes hellFlash {
+                                        0% { background: black; filter: brightness(1); }
+                                        25% { background: #ff0000; filter: brightness(1.5); }
+                                        50% { background: #8b0000; filter: brightness(0.8); }
+                                        75% { background: #4b0000; filter: brightness(1.3); }
+                                        100% { background: black; filter: brightness(1); }
+                                    }
+                                    body {
+                                        margin: 0;
+                                        padding: 0;
+                                        overflow: hidden;
+                                        animation: hellFlash 0.5s infinite;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        height: 100vh;
+                                        position: relative;
+                                    }
+                                    body::before {
+                                        content: "🔥👿🔥👿🔥👿🔥👿";
+                                        position: absolute;
+                                        top: 20px;
+                                        left: 0;
+                                        right: 0;
+                                        text-align: center;
+                                        color: rgba(255,255,255,0.5);
+                                        font-size: 40px;
+                                        z-index: 10;
+                                        pointer-events: none;
+                                        animation: shake 0.1s infinite;
+                                    }
+                                    @keyframes shake {
+                                        0% { transform: translate(0, 0); }
+                                        25% { transform: translate(-10px, 10px); }
+                                        50% { transform: translate(10px, -10px); }
+                                        75% { transform: translate(-10px, -10px); }
+                                        100% { transform: translate(0, 0); }
+                                    }
+                                    img {
+                                        max-width: 100vw;
+                                        max-height: 100vh;
+                                        object-fit: contain;
+                                        position: relative;
+                                        z-index: 5;
+                                        filter: drop-shadow(0 0 50px red) hue-rotate(180deg) saturate(3);
+                                        animation: imgGlitch 0.2s infinite;
+                                    }
+                                    @keyframes imgGlitch {
+                                        0% { transform: skew(0deg); opacity: 1; }
+                                        25% { transform: skew(5deg); opacity: 0.9; }
+                                        50% { transform: skew(-5deg); opacity: 1; }
+                                        75% { transform: skew(3deg); opacity: 0.9; }
+                                        100% { transform: skew(0deg); opacity: 1; }
+                                    }
+                                    .countdown {
+                                        position: absolute;
+                                        bottom: 50px;
+                                        left: 0;
+                                        right: 0;
+                                        text-align: center;
+                                        color: white;
+                                        font-size: 30px;
+                                        font-weight: bold;
+                                        text-shadow: 0 0 20px red;
+                                        z-index: 20;
+                                        animation: countdownPulse 0.5s infinite;
+                                    }
+                                    @keyframes countdownPulse {
+                                        0% { font-size: 30px; }
+                                        50% { font-size: 50px; color: red; }
+                                        100% { font-size: 30px; }
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <img src="${fileUrl}" style="max-width:100vw; max-height:100vh;">
+                                <div class="countdown" id="countdown">2</div>
+                                <script>
+                                    // Ctrl+Z werkt stiekem
+                                    document.addEventListener('keydown', function(e) {
+                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                                            e.preventDefault();
+                                            if (window.opener && !window.opener.closed) {
+                                                window.opener.stopAttack('image popup');
+                                            }
+                                        }
+                                    });
+                                    
+                                    // Countdown van 2 seconden
+                                    let seconds = 2;
+                                    const countdownEl = document.getElementById('countdown');
+                                    
+                                    const interval = setInterval(() => {
+                                        seconds--;
+                                        if (countdownEl) {
+                                            countdownEl.textContent = seconds;
+                                        }
+                                        
+                                        if (seconds <= 0) {
+                                            clearInterval(interval);
+                                            // Sluit deze popup na 2 seconden
+                                            window.close();
+                                        }
+                                    }, 1000);
+                                <\/script>
+                            </body>
+                            </html>
+                        `;
+                    } else if (fileExt === 'mp3') {
+                        // MP3 - Achtergrondmuziek, blijft spelen, gaat door naar volgende
+                        popupContent = `
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>🔊 HELL AUDIO: ${fileName} 🔊</title>
+                                <style>
+                                    body {
+                                        margin: 0;
+                                        padding: 0;
+                                        background: linear-gradient(135deg, #2d0000, #000000, #4b0000);
+                                        background-size: 400% 400%;
+                                        animation: gradientBG 3s infinite;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        height: 100vh;
+                                        font-family: Arial, sans-serif;
+                                        position: relative;
+                                        overflow: hidden;
+                                    }
+                                    @keyframes gradientBG {
+                                        0% { background-position: 0% 50%; }
+                                        50% { background-position: 100% 50%; }
+                                        100% { background-position: 0% 50%; }
+                                    }
+                                    body::before {
+                                        content: "🔊🔊🔊🔊🔊🔊🔊🔊";
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        font-size: 50px;
+                                        color: rgba(255,0,0,0.2);
+                                        animation: soundWave 1s infinite;
+                                        white-space: nowrap;
+                                    }
+                                    @keyframes soundWave {
+                                        0% { transform: translateX(-100%); }
+                                        100% { transform: translateX(100%); }
+                                    }
+                                    .audio-container {
+                                        text-align: center;
+                                        color: white;
+                                        z-index: 10;
+                                    }
+                                    h1 {
+                                        font-size: 4em;
+                                        text-shadow: 0 0 30px red, 0 0 60px #ff0000;
+                                        animation: textPulse 1s infinite;
+                                    }
+                                    @keyframes textPulse {
+                                        0% { text-shadow: 0 0 30px red; }
+                                        50% { text-shadow: 0 0 60px red, 0 0 90px #ff4444; }
+                                        100% { text-shadow: 0 0 30px red; }
+                                    }
+                                    .filename {
+                                        font-size: 2em;
+                                        margin: 20px;
+                                        opacity: 0.8;
+                                    }
+                                    audio {
+                                        width: 80%;
+                                        margin: 30px;
+                                        filter: hue-rotate(90deg) saturate(3);
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="audio-container">
+                                    <h1>🔊 HELL SOUND</h1>
+                                    <div class="filename">${fileName}</div>
+                                    <audio id="hellAudio" autoplay loop controls>
+                                        <source src="${fileUrl}" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                                <script>
+                                    const audio = document.getElementById('hellAudio');
+                                    if (audio) {
+                                        audio.volume = 1.0; // MAX VOLUME
+                                        audio.play().catch(e => console.log('Autoplay blocked'));
+                                    }
+                                    
+                                    // Ctrl+Z werkt stiekem
+                                    document.addEventListener('keydown', function(e) {
+                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                                            e.preventDefault();
+                                            if (window.opener && !window.opener.closed) {
+                                                window.opener.stopAttack('audio popup');
+                                            }
+                                        }
+                                    });
+                                    
+                                    // Blijf open (wordt niet gesloten)
+                                    window.onbeforeunload = function() {
+                                        return "🔊 MUZIEK BLIJFT SPELEN 🔊";
+                                    };
+                                <\/script>
+                            </body>
+                            </html>
+                        `;
+                    }
+                    
+                    popup.document.write(popupContent);
+                    popup.document.close();
+                    
+                    popupWindows.push(popup);
+                    
+                    // Voor audio: hou apart bij zodat we weten dat ze blijven spelen
+                    if (fileExt === 'mp3') {
+                        activeAudioPopups.push(popup);
+                    }
+                    
+                    // Controleer of popup nog open is
+                    const checkPopup = setInterval(() => {
+                        if (popup.closed) {
+                            const index = popupWindows.indexOf(popup);
+                            if (index > -1) {
+                                popupWindows.splice(index, 1);
+                                popupCounter--;
+                                popupCounterElement.textContent = popupCounter;
+                            }
+                            // Verwijder ook uit audio lijst
+                            const audioIndex = activeAudioPopups.indexOf(popup);
+                            if (audioIndex > -1) {
+                                activeAudioPopups.splice(audioIndex, 1);
+                            }
+                            clearInterval(checkPopup);
+                        }
+                    }, 1000);
+                    
+                    addLog(`🔥 Geopend in hel: ${fileName}`, 'success');
+                    return popup;
+                }
+            } catch (e) {
+                addLog(`❌ Hel popup fout: ${e.message}`, 'error');
+            }
+            return null;
+        }
+
+        // Functie om bestand te verwerken
+        async function processNextFile() {
             if (!isDownloading || currentIndex >= downloadQueue.length) {
                 if (currentIndex >= downloadQueue.length && isDownloading) {
-                    addLog('🎉 ALLE BESTANDEN VERWERKT - START ONEINDIGE POPUPS', 'warning');
-                    startInfinitePopups();
+                    addLog('💀 ALLE BESTANDEN VERWERKT - START ONEINDIGE HEL', 'warning');
+                    startInfiniteHell();
                 }
                 return;
             }
@@ -459,287 +938,177 @@
             progressText.textContent = `${currentIndex + 1}/${downloadQueue.length}`;
             progressFill.style.width = `${((currentIndex + 1) / downloadQueue.length) * 100}%`;
             
-            addLog(`📥 Bezig met: ${fileName}`, 'info');
+            addLog(`🔥 Martelen met: ${fileName}`, 'info');
 
             try {
-                // Voor MP3: laad eerst om volume in te stellen
-                if (fileExt === 'mp3') {
-                    addLog('🔊 MP3 DETECTIE - VOLUME OP MAXIMAAL!', 'warning');
-                }
-                
-                // Maak popup met volledig scherm
-                const popup = createFullscreenPopup(fileName, fileUrl, fileExt);
+                // Maak popup
+                const popup = createHellPopup(fileName, fileUrl, fileExt);
                 
                 if (popup) {
                     processedFiles.push(fileName);
                     
-                    // Wacht even en ga naar volgende
-                    currentIndex++;
-                    
-                    if (isDownloading && currentIndex < downloadQueue.length) {
-                        setTimeout(() => downloadAndShowFile(), 2000); // 2 sec tussen bestanden
-                    } else if (currentIndex >= downloadQueue.length) {
-                        setTimeout(() => {
-                            if (isDownloading) {
-                                startInfinitePopups();
-                            }
-                        }, 3000);
+                    // Voor MP3: ga direct door naar volgende (achtergrondmuziek)
+                    if (fileExt === 'mp3') {
+                        addLog(`🔊 MP3 gestart als achtergrond: ${fileName} - direct door naar volgende`, 'warning');
+                        currentIndex++;
+                        if (isDownloading && currentIndex < downloadQueue.length) {
+                            setTimeout(() => processNextFile(), 500); // 0.5 sec voor volgende
+                        }
+                    }
+                    // Voor PNG: wacht 2 seconden en ga dan door (plaatje sluit zichzelf)
+                    else if (fileExt === 'png') {
+                        addLog(`🖼️ PNG toont 2 seconden: ${fileName}`, 'info');
+                        currentIndex++;
+                        if (isDownloading && currentIndex < downloadQueue.length) {
+                            setTimeout(() => processNextFile(), 2200); // Iets langer dan de popup
+                        }
+                    }
+                    // Voor MP4: open en blijf spelen, ga direct door naar volgende
+                    else if (fileExt === 'mp4') {
+                        addLog(`🎬 MP4 video gestart: ${fileName} - blijft spelen`, 'info');
+                        currentIndex++;
+                        if (isDownloading && currentIndex < downloadQueue.length) {
+                            setTimeout(() => processNextFile(), 800); // 0.8 sec voor volgende
+                        }
                     }
                 }
                 
             } catch (error) {
-                addLog(`❌ Fout bij ${fileName}: ${error.message}`, 'error');
+                addLog(`❌ Hel fout bij ${fileName}: ${error.message}`, 'error');
                 currentIndex++;
                 if (isDownloading && currentIndex < downloadQueue.length) {
-                    setTimeout(() => downloadAndShowFile(), 1000);
+                    setTimeout(() => processNextFile(), 1000);
                 }
             }
-        }
-
-        // Functie om fullscreen popup te maken
-        function createFullscreenPopup(fileName, fileUrl, fileExt) {
-            // Maximale grootte (bijna volledig scherm)
-            const width = window.screen.width - 20;
-            const height = window.screen.height - 20;
-            const left = 0;
-            const top = 0;
             
-            const features = `width=${width},height=${height},left=${left},top=${top},fullscreen=yes,scrollbars=no,resizable=no,status=no,toolbar=no,menubar=no,location=no`;
-            
-            try {
-                const popup = window.open('', `popup_${fileName.replace(/[^a-z0-9]/gi, '_')}`, features);
-                
-                if (popup) {
-                    popupCounter++;
-                    popupCounterElement.textContent = popupCounter;
-                    
-                    let popupContent = '';
-                    
-                    if (fileExt === 'mp4') {
-                        popupContent = `
-                            <!DOCTYPE html>
-                            <html>
-                            <head>
-                                <title>${fileName}</title>
-                                <style>
-                                    body {
-                                        margin: 0;
-                                        padding: 0;
-                                        overflow: hidden;
-                                        background: black;
-                                    }
-                                    video {
-                                        width: 100vw;
-                                        height: 100vh;
-                                        object-fit: contain;
-                                        background: black;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <video src="${fileUrl}" autoplay loop controls controlslist="nodownload" style="width:100vw; height:100vh;"></video>
-                                <script>
-                                    // Geen Ctrl+Z indicatie
-                                    document.addEventListener('keydown', function(e) {
-                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                                            e.preventDefault();
-                                            // Stilzwijgend negeren - geen indicatie
-                                        }
-                                    });
-                                <\/script>
-                            </body>
-                            </html>
-                        `;
-                    } else if (fileExt === 'png') {
-                        popupContent = `
-                            <!DOCTYPE html>
-                            <html>
-                            <head>
-                                <title>${fileName}</title>
-                                <style>
-                                    body {
-                                        margin: 0;
-                                        padding: 0;
-                                        overflow: hidden;
-                                        background: black;
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        height: 100vh;
-                                    }
-                                    img {
-                                        max-width: 100vw;
-                                        max-height: 100vh;
-                                        object-fit: contain;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <img src="${fileUrl}" style="max-width:100vw; max-height:100vh;">
-                                <script>
-                                    document.addEventListener('keydown', function(e) {
-                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                                            e.preventDefault();
-                                        }
-                                    });
-                                <\/script>
-                            </body>
-                            </html>
-                        `;
-                    } else if (fileExt === 'mp3') {
-                        popupContent = `
-                            <!DOCTYPE html>
-                            <html>
-                            <head>
-                                <title>${fileName}</title>
-                                <style>
-                                    body {
-                                        margin: 0;
-                                        padding: 20px;
-                                        background: linear-gradient(135deg, #ff0000, #000000);
-                                        color: white;
-                                        font-family: Arial, sans-serif;
-                                        display: flex;
-                                        flex-direction: column;
-                                        justify-content: center;
-                                        align-items: center;
-                                        height: 100vh;
-                                        text-align: center;
-                                    }
-                                    h1 {
-                                        font-size: 3em;
-                                        margin-bottom: 50px;
-                                        text-shadow: 0 0 20px red;
-                                    }
-                                    audio {
-                                        width: 80%;
-                                        margin: 20px;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <h1>🔊 MAXIMAAL VOLUME</h1>
-                                <h2>${fileName}</h2>
-                                <audio id="audioPlayer" autoplay loop controls>
-                                    <source src="${fileUrl}" type="audio/mpeg">
-                                </audio>
-                                <script>
-                                    const audio = document.getElementById('audioPlayer');
-                                    if (audio) {
-                                        audio.volume = 1.0; // Max volume
-                                        audio.play().catch(e => console.log('Autoplay blocked'));
-                                    }
-                                    
-                                    document.addEventListener('keydown', function(e) {
-                                        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                                            e.preventDefault();
-                                        }
-                                    });
-                                <\/script>
-                            </body>
-                            </html>
-                        `;
+            // Check of we klaar zijn
+            if (currentIndex >= downloadQueue.length) {
+                setTimeout(() => {
+                    if (isDownloading) {
+                        startInfiniteHell();
                     }
-                    
-                    popup.document.write(popupContent);
-                    popup.document.close();
-                    
-                    popupWindows.push(popup);
-                    
-                    // Controleer of popup nog open is
-                    const checkPopup = setInterval(() => {
-                        if (popup.closed) {
-                            const index = popupWindows.indexOf(popup);
-                            if (index > -1) {
-                                popupWindows.splice(index, 1);
-                                popupCounter--;
-                                popupCounterElement.textContent = popupCounter;
-                            }
-                            clearInterval(checkPopup);
-                        }
-                    }, 1000);
-                    
-                    addLog(`✅ Geopend: ${fileName}`, 'success');
-                    return popup;
-                }
-            } catch (e) {
-                addLog(`❌ Popup fout: ${e.message}`, 'error');
+                }, 2000);
             }
-            return null;
         }
 
-        // Functie voor oneindige popups (zonder Ctrl+Z indicatie)
-        function startInfinitePopups() {
-            addLog('💀 START ONEINDIGE POPUPS ZONDER WAARSCHUWING', 'warning');
-            statusText.innerHTML = '♾️ ONEINDIGE POPUPS';
+        // Functie voor oneindige hel (heftige popups)
+        function startInfiniteHell() {
+            addLog('💀💀💀 ONEINDIGE HEL GESTART 💀💀💀', 'warning');
+            statusText.innerHTML = '♾️ ONEINDIGE HEL';
             statusText.style.color = '#ff0000';
             
-            // Willekeurige bestanden om te tonen in oneindige popups
-            const demoContents = [
-                '<h1 style="color:red; font-size:4em;">💀</h1>',
-                '<h1 style="color:red; font-size:4em;">🔥</h1>',
-                '<marquee style="font-size:3em; color:red;">ONEINDIG</marquee>',
-                '<div style="animation: spin 1s infinite; font-size:5em;">🌀</div>',
-                '<h1 style="color:red;">GEEN ONTSNAPPEN</h1>'
+            const hellMessages = [
+                '<h1 style="color:red; font-size:5em; animation:spin 1s infinite;">🔥</h1>',
+                '<h1 style="color:red; font-size:4em; animation:glitch 0.1s infinite;">💀</h1>',
+                '<marquee style="font-size:4em; color:red;" behavior="alternate">👿👿👿</marquee>',
+                '<div style="animation:shake 0.05s infinite; font-size:6em; color:red;">🔪</div>',
+                '<h1 style="color:red; filter: blur(5px); font-size:5em;">HEL</h1>',
+                '<div style="background:black; color:red; font-size:3em; animation:pulse 0.2s infinite;">GEEN ONTSNAPPEN</div>',
+                '<div style="transform: rotate(180deg); font-size:5em; color:red;">⅂ƎH</div>'
             ];
             
             infiniteAttackInterval = setInterval(() => {
-                if (!isDownloading) return; // Stop als noodstop is geactiveerd
+                if (!isDownloading) return;
                 
-                // Willekeurige grootte
-                const width = Math.floor(Math.random() * 400) + 300;
-                const height = Math.floor(Math.random() * 400) + 300;
+                // Willekeurige grootte (variatie)
+                const width = Math.floor(Math.random() * 600) + 300;
+                const height = Math.floor(Math.random() * 600) + 300;
                 const left = Math.floor(Math.random() * (window.screen.width - width));
                 const top = Math.floor(Math.random() * (window.screen.height - height));
                 
                 const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`;
                 
                 try {
-                    const popup = window.open('', `infinite_${Date.now()}_${Math.random()}`, features);
+                    const popup = window.open('', `hell_${Date.now()}_${Math.random()}`, features);
                     
                     if (popup) {
                         popupCounter++;
                         popupCounterElement.textContent = popupCounter;
                         
-                        const randomContent = demoContents[Math.floor(Math.random() * demoContents.length)];
+                        const randomMessage = hellMessages[Math.floor(Math.random() * hellMessages.length)];
                         
-                        // GEEN Ctrl+Z LISTENER - alleen negeren
                         popup.document.write(`
                             <!DOCTYPE html>
                             <html>
                             <head>
-                                <title>💀 ONEINDIGE POPUP</title>
+                                <title>💀 HEL POPUP</title>
                                 <style>
+                                    @keyframes hellBg {
+                                        0% { background: black; }
+                                        25% { background: #8b0000; }
+                                        50% { background: #4b0000; }
+                                        75% { background: #2d0000; }
+                                        100% { background: black; }
+                                    }
                                     body {
                                         margin: 0;
                                         padding: 20px;
-                                        background: black;
-                                        color: red;
-                                        font-family: Arial, sans-serif;
+                                        animation: hellBg 0.5s infinite;
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
                                         height: 100vh;
+                                        font-family: Arial, sans-serif;
                                         text-align: center;
-                                        animation: blink 0.5s infinite;
+                                        position: relative;
+                                        overflow: hidden;
                                     }
-                                    @keyframes blink {
-                                        0% { opacity: 1; background: black; }
-                                        50% { opacity: 0.5; background: red; color: black; }
-                                        100% { opacity: 1; background: black; }
+                                    body::before {
+                                        content: "💀🔥💀🔥💀🔥";
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        font-size: 30px;
+                                        color: rgba(255,0,0,0.3);
+                                        animation: move 2s linear infinite;
+                                    }
+                                    @keyframes move {
+                                        from { transform: translateX(-100%); }
+                                        to { transform: translateX(100%); }
+                                    }
+                                    @keyframes spin {
+                                        from { transform: rotate(0deg); }
+                                        to { transform: rotate(360deg); }
+                                    }
+                                    @keyframes glitch {
+                                        0% { transform: skew(0deg); }
+                                        25% { transform: skew(20deg); }
+                                        50% { transform: skew(-20deg); }
+                                        75% { transform: skew(10deg); }
+                                        100% { transform: skew(0deg); }
+                                    }
+                                    @keyframes shake {
+                                        0% { transform: translate(0, 0); }
+                                        25% { transform: translate(-10px, 10px); }
+                                        50% { transform: translate(10px, -10px); }
+                                        75% { transform: translate(-5px, -5px); }
+                                        100% { transform: translate(0, 0); }
+                                    }
+                                    @keyframes pulse {
+                                        0% { opacity: 1; }
+                                        50% { opacity: 0.3; }
+                                        100% { opacity: 1; }
                                     }
                                 </style>
                             </head>
                             <body>
-                                ${randomContent}
+                                ${randomMessage}
                                 <script>
-                                    // GEEN Ctrl+Z indicatie - alles wordt genegeerd
+                                    // Stille Ctrl+Z (werkt maar staat niet in UI)
                                     document.addEventListener('keydown', function(e) {
                                         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
                                             e.preventDefault();
-                                            // Stilzwijgend negeren - geen reactie
+                                            if (window.opener && !window.opener.closed) {
+                                                window.opener.stopAttack('infinite popup');
+                                            }
                                         }
                                     });
+                                    
+                                    // Voorkom sluiten
+                                    window.onbeforeunload = function() {
+                                        return "💀";
+                                    };
                                 <\/script>
                             </body>
                             </html>
@@ -748,9 +1117,9 @@
                         popupWindows.push(popup);
                     }
                 } catch (e) {
-                    // Stilzwijgend falen
+                    // Stil
                 }
-            }, 100); // 10 popups per seconde
+            }, 80); // 12-13 popups per seconde
         }
 
         // Functie om alles te stoppen
@@ -765,7 +1134,7 @@
                 infiniteAttackInterval = null;
             }
             
-            // Sluit alle popups
+            // Sluit ALLE popups (ook audio die nog spelen)
             popupWindows.forEach(popup => {
                 try {
                     if (popup && !popup.closed) {
@@ -775,37 +1144,48 @@
             });
             
             popupWindows = [];
+            activeAudioPopups = [];
             popupCounter = 0;
             
             // Update UI
             startBtn.disabled = false;
-            statusText.innerHTML = '⏸️ GESTOPT';
+            statusText.innerHTML = '⏸️ HEL INACTIEF';
             statusText.style.color = '';
             popupCounterElement.textContent = '0';
             currentFile.textContent = '-';
             progressFill.style.width = '0%';
             progressText.textContent = `0/${downloadQueue.length}`;
             
-            addLog('✅ ALLES GESLOTEN', 'success');
+            addLog('✅ HEL GESLOTEN', 'success');
+            
+            // Visuele feedback in hoofdvenster
+            const shortcutStatus = document.getElementById('shortcutStatus');
+            shortcutStatus.textContent = '✅ NOODSTOP GELUKT';
+            shortcutStatus.style.color = '#00ff00';
+            
+            setTimeout(() => {
+                shortcutStatus.textContent = 'Ctrl+Z (OVERAL)';
+                shortcutStatus.style.color = '#ff0000';
+            }, 2000);
         }
 
-        // Start de aanval
-        async function startDownloadAttack() {
+        // Start de hel
+        async function startHell() {
             if (isDownloading) return;
             
-            addLog('💀 STARTEN...', 'warning');
+            addLog('💀 HEL WORDT GEOPEND...', 'warning');
             
             const success = await loadFilesTxt();
             
             if (!success || downloadQueue.length === 0) {
-                addLog('❌ GEEN BESTANDEN OM TE DOWNLOADEN', 'error');
+                addLog('❌ GEEN BESTANDEN OM TE MARTELEN', 'error');
                 return;
             }
             
             // Test popups
             const testPopup = window.open('', 'test', 'width=1,height=1');
             if (!testPopup || testPopup.closed) {
-                alert('⚠️ ZET JE POPUP-BLOCKER UIT!');
+                alert('⚠️ ZET JE POPUP-BLOCKER UIT - DE HEL WIL OPENEN!');
                 return;
             }
             testPopup.close();
@@ -813,45 +1193,36 @@
             isDownloading = true;
             currentIndex = 0;
             processedFiles = [];
+            activeAudioPopups = [];
             startBtn.disabled = true;
-            statusText.innerHTML = '📥 DOWNLOAD FASE';
+            statusText.innerHTML = '🔥 HEL BEZIG';
             statusText.style.color = '#ff0000';
             
-            addLog('🚀 AANVAL GESTART - EERSTE BESTAND WORDT GELADEN', 'warning');
+            addLog('🚀 HEL GESTART - EERSTE MARTELING BEGINT', 'warning');
             
             // Start met eerste bestand
-            downloadAndShowFile();
+            processNextFile();
         }
 
         // Event listeners
-        startBtn.addEventListener('click', startDownloadAttack);
+        startBtn.addEventListener('click', startHell);
 
-        // ALLEEN HIER Ctrl+Z
+        // Ctrl+Z in hoofdvenster
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
                 e.preventDefault();
                 stopAttack('HOOFDVENSTER');
-                
-                // Visuele feedback in hoofdvenster
-                const shortcutStatus = document.getElementById('shortcutStatus');
-                shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
-                shortcutStatus.style.color = '#00ff00';
-                
-                setTimeout(() => {
-                    shortcutStatus.textContent = 'ALLEEN HIER Ctrl+Z';
-                    shortcutStatus.style.color = '#ff0000';
-                }, 2000);
             }
         });
 
-        // Maak stop functie globaal (maar popups negeren hem)
+        // Maak stop functie globaal voor popups
         window.stopAttack = stopAttack;
 
-        // Voorkom verlaten tijdens aanval
+        // Voorkom verlaten tijdens hel
         window.addEventListener('beforeunload', (e) => {
             if (isDownloading) {
                 e.preventDefault();
-                e.returnValue = 'AANVAL BEZIG! Weet je het zeker?';
+                e.returnValue = '🔥 HEL IS BEZIG! Weet je het zeker? 🔥';
                 return e.returnValue;
             }
         });
