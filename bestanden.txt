@@ -1,6 +1,6 @@
 De coolste jongen.mp4
 Error 1.mp3
-Error sound .mp3
+Error soundeffects.mp3
 bestanden/1.png
 bestanden/2.png
 bestanden/3.png
