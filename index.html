@@ -401,19 +401,15 @@
                             <div class="warning">Deze popup luistert niet naar de noodstop!</div>
                             
                             <script>
-                                // CTRL+Z LISTENER IN DE POPUP ZELF
                                 document.addEventListener('keydown', function(e) {
                                     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
                                         e.preventDefault();
                                         
-                                        // Geef visuele feedback in de popup
                                         document.body.style.background = '#28a745';
                                         document.body.innerHTML = '<h1>✅ NOODSTOP</h1><p>Alle vensters sluiten...</p>';
                                         
-                                        // Stuur signaal naar hoofdvenster (via window.opener)
                                         if (window.opener && !window.opener.closed) {
                                             try {
-                                                // Roep de stop functie aan in het hoofdvenster
                                                 window.opener.stopAttack('popup #' + ${popupNumber});
                                             } catch(err) {
                                                 console.log('Kon hoofdvenster niet bereiken', err);
