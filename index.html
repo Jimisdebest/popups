@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Je bent gehackt</title>
+    <title>Popup Aanval met Bestanden Downloader</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
             text-align: center;
             animation: fadeIn 0.5s ease-out;
@@ -96,6 +96,72 @@
             font-weight: 500;
         }
 
+        .repo-input {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .repo-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .repo-input input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .repo-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .repo-input small {
+            display: block;
+            margin-top: 5px;
+            color: #6c757d;
+        }
+
+        .file-list {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        .file-list h4 {
+            margin-bottom: 10px;
+            color: #495057;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-list ul {
+            list-style: none;
+        }
+
+        .file-list li {
+            padding: 5px 10px;
+            border-bottom: 1px solid #dee2e6;
+            font-family: monospace;
+            color: #007bff;
+        }
+
+        .file-list li:last-child {
+            border-bottom: none;
+        }
+
         .button-container {
             display: flex;
             gap: 15px;
@@ -138,6 +204,16 @@
             background: #ccc;
         }
 
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
         .status-panel {
             background: #f8f9fa;
             border-radius: 10px;
@@ -172,6 +248,26 @@
             color: #dc3545;
         }
 
+        .status-value.success {
+            color: #28a745;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
         .shortcut-info {
             background: #e9ecef;
             border-radius: 8px;
@@ -197,32 +293,77 @@
             font-size: 0.9em;
         }
 
-        .popup-counter {
-            font-size: 2em;
-            font-weight: 700;
-            color: #28a745;
+        .download-log {
+            background: #2d2d2d;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        .log-entry {
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .log-entry.success {
+            color: #00ff00;
+        }
+
+        .log-entry.error {
+            color: #ff6b6b;
+        }
+
+        .log-entry.info {
+            color: #4ecdc4;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Je bent gehackt...</h1>
+        <h1>📥 Popup Aanval met Bestanden Downloader</h1>
         
         <div class="warning-box">
             <h3>⚠️ Veiligheidswaarschuwing</h3>
             <ul>
-                <li>Deze website opent ECHTE popupvensters</li>
+                <li>Deze website downloadt bestanden en opent ze in popups</li>
                 <li>Zorg dat je popup-blocker is UITGESCHAKELD</li>
+                <li>Bestanden worden ÉÉN VOOR ÉÉN gedownload en geopend</li>
             </ul>
         </div>
 
         <div class="feature-highlight">
-            <p>✨ <strong>NIEUW:</strong> Je kunt deze aanval niet meer stoppen!</p>
-            <p>📋 Geen enkel venster luistert naar de noodstop combinatie</p>
+            <p>✨ <strong>NIEUW:</strong> Downloadt bestanden uit repository en opent ze automatisch!</p>
+            <p>📋 bestanden.txt bevat de lijst met te downloaden bestanden</p>
+        </div>
+
+        <div class="repo-input">
+            <label for="repoUrl">Repository URL (raw.githubusercontent.com):</label>
+            <input type="text" id="repoUrl" placeholder="https://raw.githubusercontent.com/jimisdebest/popups" value="https://raw.githubusercontent.com/jimisdebest/popups">
+            <small>Gebruik de RAW URL van GitHub eindigend met een /</small>
+        </div>
+
+        <div class="file-list">
+            <h4>📄 bestanden.txt inhoud <span id="fileCount">(0 bestanden)</span></h4>
+            <ul id="fileList">
+                <li>Nog niet geladen...</li>
+            </ul>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
         </div>
 
         <div class="button-container">
-            <button class="btn btn-start" id="startBtn">🚀 Start Popup Aanval</button>
+            <button class="btn btn-start" id="startBtn">🚀 Start Download Aanval</button>
+            <button class="btn btn-secondary" id="loadFilesBtn">📋 Laad bestanden.txt</button>
         </div>
 
         <div class="status-panel">
@@ -231,228 +372,362 @@
                 <span class="status-value" id="statusText">⏸️ Gestopt</span>
             </div>
             <div class="status-item">
-                <span class="status-label">Aantal popups:</span>
-                <span class="status-value popup-counter" id="counter">0</span>
+                <span class="status-label">Voortgang:</span>
+                <span class="status-value" id="progressText">0/0</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Huidig bestand:</span>
+                <span class="status-value" id="currentFile">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Open popups:</span>
+                <span class="status-value popup-counter" id="popupCounter">0</span>
             </div>
             <div class="status-item">
                 <span class="status-label">Noodstop:</span>
-                <span class="status-value warning" id="shortcutStatus">Niet beschikbaar)</span>
+                <span class="status-value warning" id="shortcutStatus">Niet beschikbaar</span>
             </div>
         </div>
 
+        <div class="download-log" id="downloadLog">
+            <div class="log-entry info">▶️ Klaar om te starten...</div>
+        </div>
+
         <div class="shortcut-info">
-            <p><strong>📋 Instructies:</strong></p>
-            <p>1. Klik op "Start Popup Aanval" om te beginnen</p>
-            <p>2. Er verschijnen oneindig veel popupvensters</p>
+            <p><strong>📋 Hoe het werkt:</strong></p>
+            <p>1. Voer de juiste repository URL in</p>
+            <p>2. Klik op "Laad bestanden.txt" om de lijst te laden</p>
+            <p>3. Klik op "Start Download Aanval" om te beginnen</p>
+            <p>4. Bestanden worden één voor één gedownload en geopend</p>
+        </div>
+
+        <div class="footer">
+            ⚡ Downloadt bestanden uit repository - Stoppen met Ctrl+Z
         </div>
     </div>
 
     <script>
-        // Variabelen voor de popup attack
-        let attackInterval = null;
+        // Variabelen voor de download attack
+        let downloadQueue = [];
+        let isDownloading = false;
+        let currentIndex = 0;
         let popupWindows = [];
-        let isAttacking = false;
-        let windowCounter = 0;
-        let attackSpeed = 300; // Iets langzamer voor betere controle
-
+        let popupCounter = 0;
+        
         // DOM elementen
         const startBtn = document.getElementById('startBtn');
+        const loadFilesBtn = document.getElementById('loadFilesBtn');
+        const repoUrlInput = document.getElementById('repoUrl');
+        const fileList = document.getElementById('fileList');
+        const fileCount = document.getElementById('fileCount');
         const statusText = document.getElementById('statusText');
-        const counterElement = document.getElementById('counter');
+        const progressText = document.getElementById('progressText');
+        const currentFile = document.getElementById('currentFile');
+        const popupCounterElement = document.getElementById('popupCounter');
+        const progressFill = document.getElementById('progressFill');
+        const downloadLog = document.getElementById('downloadLog');
 
-        // Functie om alle popups te sluiten en de aanval te stoppen
-        function stopAttack(source = 'onbekend') {
-            console.log(`Noodstop geactiveerd vanuit: ${source}`);
+        // Log functie
+        function addLog(message, type = 'info') {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            downloadLog.appendChild(logEntry);
+            downloadLog.scrollTop = downloadLog.scrollHeight;
             
-            if (!isAttacking && popupWindows.length === 0) return;
-            
-            // Stop met nieuwe popups openen
-            if (attackInterval) {
-                clearInterval(attackInterval);
-                attackInterval = null;
+            // Houd maximaal 50 log berichten
+            while (downloadLog.children.length > 50) {
+                downloadLog.removeChild(downloadLog.firstChild);
             }
-            
-            // Sluit alle bestaande popups
-            popupWindows.forEach(popup => {
-                try {
-                    if (popup && !popup.closed) {
-                        popup.close();
-                    }
-                } catch (e) {
-                    // Negeer fouten bij sluiten
-                }
-            });
-            
-            // Leeg de array
-            popupWindows = [];
-            windowCounter = 0;
-            isAttacking = false;
-            
-            // Update UI
-            startBtn.disabled = false;
-            statusText.innerHTML = '⏸️ Gestopt';
-            statusText.style.color = '';
-            counterElement.textContent = '0';
-            
-            // Geef visuele feedback in hoofdvenster
-            const shortcutStatus = document.getElementById('shortcutStatus');
-            const originalText = shortcutStatus.textContent;
-            shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
-            shortcutStatus.style.color = '#28a745';
-            
-            setTimeout(() => {
-                shortcutStatus.textContent = originalText;
-                shortcutStatus.style.color = '#dc3545';
-            }, 2000);
         }
 
-        // Functie om een nieuwe popup te openen
-        function openPopup() {
-            if (!isAttacking) return;
-
-            windowCounter++;
-            counterElement.textContent = windowCounter;
-
-            // Willekeurige grootte en positie voor variatie
-            const width = Math.floor(Math.random() * 300) + 200;
-            const height = Math.floor(Math.random() * 300) + 200;
-            const left = Math.floor(Math.random() * (window.screen.width - width));
-            const top = Math.floor(Math.random() * (window.screen.height - height));
-
-            // Willekeurige content voor de popup
-            const popupNumber = windowCounter;
-            const colors = ['ff6b6b', '4ecdc4', '45b7d1', '96ceb4', 'ffeead', 'ffcc5c', 'ff6f69'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`;
-            
+        // Functie om bestanden.txt te laden
+        async function loadFilesTxt() {
             try {
-                const popup = window.open('', `popup_${popupNumber}`, features);
+                const baseUrl = repoUrlInput.value.trim();
+                if (!baseUrl) {
+                    alert('Voer eerst een repository URL in');
+                    return;
+                }
+
+                addLog('📥 Bezig met laden van bestanden.txt...', 'info');
+                const response = await fetch(`${baseUrl}bestanden.txt`);
                 
-                if (popup) {
-                    // Schrijf HTML naar de popup
-                    popup.document.write(`
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                
+                // Parse bestanden.txt (één bestand per regel, negeer lege regels en commentaar)
+                downloadQueue = text.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line && !line.startsWith('#'));
+                
+                // Update file list
+                fileList.innerHTML = '';
+                downloadQueue.forEach(file => {
+                    const li = document.createElement('li');
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                });
+                
+                fileCount.textContent = `(${downloadQueue.length} bestanden)`;
+                progressText.textContent = `0/${downloadQueue.length}`;
+                
+                addLog(`✅ ${downloadQueue.length} bestanden gevonden in bestanden.txt`, 'success');
+                
+            } catch (error) {
+                addLog(`❌ Fout bij laden: ${error.message}`, 'error');
+                alert(`Kan bestanden.txt niet laden: ${error.message}\n\nControleer de URL en of bestanden.txt bestaat.`);
+            }
+        }
+
+        // Functie om een bestand te downloaden en te openen in popup
+        async function downloadAndOpenNextFile() {
+            if (!isDownloading || currentIndex >= downloadQueue.length) {
+                if (currentIndex >= downloadQueue.length) {
+                    stopAttack('download compleet');
+                    addLog('✅ Alle bestanden verwerkt!', 'success');
+                }
+                return;
+            }
+
+            const fileName = downloadQueue[currentIndex];
+            const baseUrl = repoUrlInput.value.trim();
+            const fileUrl = `${baseUrl}${fileName}`;
+            
+            currentFile.textContent = fileName;
+            progressText.textContent = `${currentIndex + 1}/${downloadQueue.length}`;
+            progressFill.style.width = `${((currentIndex + 1) / downloadQueue.length) * 100}%`;
+            
+            addLog(`📥 Downloaden: ${fileName}`, 'info');
+
+            try {
+                // Download het bestand
+                const response = await fetch(fileUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const content = await response.text();
+                
+                // Bepaal bestandstype op basis van extensie
+                const fileExt = fileName.split('.').pop().toLowerCase();
+                let popupContent = '';
+                
+                if (fileExt === 'html' || fileExt === 'htm') {
+                    // HTML bestand - gebruik de inhoud direct
+                    popupContent = content;
+                } else if (fileExt === 'txt' || fileExt === 'md' || fileExt === 'json') {
+                    // Tekstbestand - toon in pre-formatted block
+                    popupContent = `
                         <!DOCTYPE html>
                         <html>
                         <head>
-                            <title>Popup #${popupNumber}</title>
+                            <title>${fileName}</title>
                             <style>
                                 body {
-                                    margin: 0;
-                                    padding: 20px;
-                                    font-family: Arial, sans-serif;
-                                    background: #${randomColor};
-                                    color: white;
-                                    text-align: center;
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: center;
-                                    height: 100vh;
-                                    overflow: hidden;
-                                    animation: pulse 2s infinite;
-                                }
-                                @keyframes pulse {
-                                    0% { opacity: 1; }
-                                    50% { opacity: 0.9; }
-                                    100% { opacity: 1; }
-                                }
-                                h1 {
-                                    font-size: 2em;
-                                    margin-bottom: 10px;
-                                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-                                }
-                                .counter {
-                                    font-size: 1.2em;
-                                    opacity: 0.9;
-                                    margin-bottom: 20px;
-                                }
-                                .shortcut-box {
-                                    background: rgba(0,0,0,0.2);
-                                    padding: 15px 25px;
-                                    border-radius: 50px;
-                                    border: 2px solid white;
-                                    margin: 20px 0;
-                                    font-size: 1.3em;
-                                    font-weight: bold;
-                                }
-                                .warning {
-                                    position: absolute;
-                                    bottom: 20px;
-                                    font-size: 0.9em;
-                                    opacity: 0.8;
-                                }
-                                .key {
-                                    background: rgba(255,255,255,0.3);
-                                    padding: 5px 10px;
-                                    border-radius: 5px;
-                                    margin: 0 5px;
+                                    background: #2d2d2d;
+                                    color: #00ff00;
                                     font-family: monospace;
-                                    font-size: 1.2em;
+                                    padding: 20px;
+                                    margin: 0;
+                                    white-space: pre-wrap;
+                                    word-wrap: break-word;
+                                }
+                                pre {
+                                    margin: 0;
+                                    font-size: 14px;
                                 }
                             </style>
                         </head>
                         <body>
-                            <h1>⚠️ Popup #${popupNumber}</h1>
-                            <div class="counter">Deel van de oneindige aanval</div>
-                            <div class="shortcut-box">
-                                Niet te stoppen - Jammer sukkel
-                            </div>
-                            <div class="warning">Deze popup luistert niet naar de noodstop!</div>
-                            
-                            <script>
-                                document.addEventListener('keydown', function(e) {
-                                    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                                        e.preventDefault();
-                                        
-                                        document.body.style.background = '#28a745';
-                                        document.body.innerHTML = '<h1>✅ NOODSTOP</h1><p>Alle vensters sluiten...</p>';
-                                        
-                                        if (window.opener && !window.opener.closed) {
-                                            try {
-                                                window.opener.stopAttack('popup #' + ${popupNumber});
-                                            } catch(err) {
-                                                console.log('Kon hoofdvenster niet bereiken', err);
-                                            }
-                                        }
-                                    }
-                                });
-                                
-                                // Voorkom dat de popup per ongeluk wordt gesloten
-                                window.onbeforeunload = function() {
-                                    return "Deze popup hoort bij de aanval. Niet stopbaar...";
-                                };
-                                
-                                // Focus automatic op de popup voor directe toetsregistratie
-                                window.focus();
-                            <\/script>
+                            <pre>${escapeHtml(content)}</pre>
                         </body>
                         </html>
-                    `);
+                    `;
+                } else if (fileExt === 'js') {
+                    // JavaScript bestand - toon met syntax highlighting idee
+                    popupContent = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${fileName}</title>
+                            <style>
+                                body {
+                                    background: #1e1e1e;
+                                    color: #d4d4d4;
+                                    font-family: 'Consolas', monospace;
+                                    padding: 20px;
+                                    margin: 0;
+                                    white-space: pre-wrap;
+                                }
+                                .comment { color: #6a9955; }
+                                .string { color: #ce9178; }
+                                .keyword { color: #569cd6; }
+                            </style>
+                        </head>
+                        <body>
+                            <pre>${escapeHtml(content)}</pre>
+                        </body>
+                        </html>
+                    `;
+                } else if (fileExt === 'jpg' || fileExt === 'png' || fileExt === 'gif' || fileExt === 'svg') {
+                    // Afbeelding - probeer als data URL (werkt alleen voor kleine bestanden)
+                    addLog(`⚠️ Afbeeldingen moeten apart worden geopend: ${fileName}`, 'warning');
+                    popupContent = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${fileName}</title>
+                            <style>
+                                body {
+                                    background: #f0f0f0;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: 100vh;
+                                    margin: 0;
+                                    font-family: Arial, sans-serif;
+                                }
+                                .message {
+                                    text-align: center;
+                                    padding: 20px;
+                                }
+                                a {
+                                    color: #667eea;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="message">
+                                <h2>🖼️ ${fileName}</h2>
+                                <p>Afbeelding moet apart worden geopend:</p>
+                                <p><a href="${fileUrl}" target="_blank">Klik hier om te openen</a></p>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                } else {
+                    // Onbekend type - toon als tekst
+                    popupContent = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${fileName}</title>
+                            <style>
+                                body {
+                                    background: #f8f9fa;
+                                    font-family: Arial, sans-serif;
+                                    padding: 20px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h2>📄 ${fileName}</h2>
+                            <pre>${escapeHtml(content)}</pre>
+                        </body>
+                        </html>
+                    `;
+                }
+                
+                // Open popup met willekeurige grootte
+                openPopupWithContent(fileName, popupContent);
+                
+                addLog(`✅ Geopend: ${fileName}`, 'success');
+                
+            } catch (error) {
+                addLog(`❌ Fout bij ${fileName}: ${error.message}`, 'error');
+            }
+            
+            // Wacht even en ga dan naar volgende bestand
+            currentIndex++;
+            
+            if (isDownloading && currentIndex < downloadQueue.length) {
+                setTimeout(() => downloadAndOpenNextFile(), 1000); //tijd tussen downloads
+            } else if (currentIndex >= downloadQueue.length) {
+                stopAttack('download compleet');
+            }
+        }
+
+        // Helper om HTML te escapen
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Functie om popup te openen met inhoud
+        function openPopupWithContent(fileName, content) {
+            // Willekeurige grootte
+            const width = Math.floor(Math.random() * 400) + 400; // 400-800px
+            const height = Math.floor(Math.random() * 400) + 400; // 400-800px
+            
+            // Willekeurige positie
+            const left = Math.floor(Math.random() * (window.screen.width - width));
+            const top = Math.floor(Math.random() * (window.screen.height - height));
+            
+            const features = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`;
+            
+            try {
+                const popup = window.open('', `popup_${popupCounter + 1}_${fileName.replace(/[^a-z0-9]/gi, '_')}`, features);
+                
+                if (popup) {
+                    popupCounter++;
+                    popupCounterElement.textContent = popupCounter;
+                    
+                    // Voeg Ctrl+Z listener toe aan de popup
+                    const popupHtml = content.replace('</body>', `
+                        <script>
+                            document.addEventListener('keydown', function(e) {
+                                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                                    e.preventDefault();
+                                    document.body.style.background = '#28a745';
+                                    document.body.innerHTML = '<h1 style="color:white;text-align:center;margin-top:50px;">✅ NOODSTOP</h1><p style="color:white;text-align:center;">Alle vensters sluiten...</p>';
+                                    if (window.opener && !window.opener.closed) {
+                                        window.opener.stopAttack('popup');
+                                    }
+                                }
+                            });
+                            window.focus();
+                        <\/script>
+                    </body>`);
+                    
+                    popup.document.write(popupHtml);
+                    popup.document.close();
                     
                     popupWindows.push(popup);
                     
-                    // Controleer of de popup nog open is
+                    // Controleer of popup nog open is
                     const checkPopup = setInterval(() => {
                         if (popup.closed) {
                             const index = popupWindows.indexOf(popup);
                             if (index > -1) {
                                 popupWindows.splice(index, 1);
-                                windowCounter--;
-                                counterElement.textContent = windowCounter;
+                                popupCounter--;
+                                popupCounterElement.textContent = popupCounter;
                             }
                             clearInterval(checkPopup);
                         }
                     }, 1000);
                 }
             } catch (e) {
-                console.log('Popup geblokkeerd? Zet je popup-blocker uit!');
+                addLog(`❌ Kon popup niet openen: ${e.message}`, 'error');
             }
         }
 
-        // Functie om de aanval te starten
-        function startAttack() {
-            if (isAttacking) return;
+        // Functie om de download attack te starten
+        function startDownloadAttack() {
+            if (isDownloading) return;
+            
+            if (downloadQueue.length === 0) {
+                alert('Laad eerst bestanden.txt met de lijst van bestanden!');
+                return;
+            }
             
             // Test of popups werken
             const testPopup = window.open('', 'test', 'width=1,height=1');
@@ -462,22 +737,64 @@
             }
             testPopup.close();
 
-            isAttacking = true;
+            isDownloading = true;
+            currentIndex = 0;
             startBtn.disabled = true;
-            statusText.innerHTML = '🔥 AANVAL BEZIG';
+            statusText.innerHTML = '📥 DOWNLOAD BEZIG';
             statusText.style.color = '#dc3545';
             
-            // Open direct de eerste popup
-            openPopup();
+            addLog('🚀 Start download aanval...', 'info');
             
-            // Start oneindige popup stroom
-            attackInterval = setInterval(openPopup, attackSpeed);
+            // Start met eerste bestand
+            downloadAndOpenNextFile();
         }
 
-        // Event listener voor de start knop
-        startBtn.addEventListener('click', startAttack);
+        // Functie om alles te stoppen
+        function stopAttack(source = 'onbekend') {
+            addLog(`🛑 Noodstop geactiveerd vanuit: ${source}`, 'warning');
+            
+            if (isDownloading) {
+                isDownloading = false;
+            }
+            
+            // Sluit alle popups
+            popupWindows.forEach(popup => {
+                try {
+                    if (popup && !popup.closed) {
+                        popup.close();
+                    }
+                } catch (e) {}
+            });
+            
+            popupWindows = [];
+            popupCounter = 0;
+            
+            // Update UI
+            startBtn.disabled = false;
+            statusText.innerHTML = '⏸️ Gestopt';
+            statusText.style.color = '';
+            popupCounterElement.textContent = '0';
+            currentFile.textContent = '-';
+            
+            // Geef visuele feedback
+            const shortcutStatus = document.getElementById('shortcutStatus');
+            const originalText = shortcutStatus.textContent;
+            shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
+            shortcutStatus.style.color = '#28a745';
+            
+            setTimeout(() => {
+                shortcutStatus.textContent = originalText;
+                shortcutStatus.style.color = '#dc3545';
+            }, 2000);
+            
+            addLog('✅ Alle vensters gesloten', 'success');
+        }
 
-        // Event listener voor Ctrl+Z in HOOFDVENSTER
+        // Event listeners
+        loadFilesBtn.addEventListener('click', loadFilesTxt);
+        startBtn.addEventListener('click', startDownloadAttack);
+
+        // Ctrl+Z in hoofdvenster
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
                 e.preventDefault();
@@ -485,29 +802,20 @@
             }
         });
 
-        // Maak de stop functie globaal beschikbaar voor popups
+        // Maak stop functie globaal
         window.stopAttack = stopAttack;
 
-        // Voorkom dat de pagina per ongeluk wordt verlaten tijdens een aanval
+        // Voorkom verlaten tijdens download
         window.addEventListener('beforeunload', (e) => {
-            if (isAttacking) {
+            if (isDownloading) {
                 e.preventDefault();
-                e.returnValue = 'Druk op annuleren om te stoppen.';
+                e.returnValue = 'Er is nog een download bezig. Weet je zeker dat je wilt stoppen?';
                 return e.returnValue;
             }
         });
 
-        // Cleanup bij verlaten van de pagina
-        window.addEventListener('unload', () => {
-            stopAttack('unload');
-        });
-
-        // Extra veiligheid: stop aanval als de pagina verborgen wordt
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && isAttacking) {
-                stopAttack('visibilitychange');
-            }
-        });
+        // Voorbeeld bestanden.txt voor demo
+        addLog('ℹ️ Vul de juiste repository URL in en klik op "Laad bestanden.txt"', 'info');
     </script>
 </body>
 </html>
