@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup Aanval Simulator</title>
+    <title>Je bent gehackt</title>
     <style>
         * {
             margin: 0;
@@ -80,6 +80,20 @@
         .warning-box li {
             margin: 8px 0;
             line-height: 1.4;
+        }
+
+        .feature-highlight {
+            background: #cce5ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #004085;
+        }
+
+        .feature-highlight p {
+            margin: 5px 0;
+            font-weight: 500;
         }
 
         .button-container {
@@ -192,16 +206,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>🚨 Popup Aanval Simulator</h1>
+        <h1>Je bent gehackt...</h1>
         
         <div class="warning-box">
             <h3>⚠️ Veiligheidswaarschuwing</h3>
             <ul>
                 <li>Deze website opent ECHTE popupvensters</li>
                 <li>Zorg dat je popup-blocker is UITGESCHAKELD</li>
-                <li>Druk op <span class="keyboard-key">Ctrl</span> + <span class="keyboard-key">Z</span> om ALLE vensters te sluiten</li>
-                <li>De popups stoppen automatisch na het indrukken van Ctrl+Z</li>
             </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <p>✨ <strong>NIEUW:</strong> Je kunt deze aanval niet meer stoppen!</p>
+            <p>📋 Geen enkel venster luistert naar de noodstop combinatie</p>
         </div>
 
         <div class="button-container">
@@ -219,7 +236,7 @@
             </div>
             <div class="status-item">
                 <span class="status-label">Noodstop:</span>
-                <span class="status-value warning" id="shortcutStatus">Ctrl+Z</span>
+                <span class="status-value warning" id="shortcutStatus">Niet beschikbaar)</span>
             </div>
         </div>
 
@@ -227,12 +244,6 @@
             <p><strong>📋 Instructies:</strong></p>
             <p>1. Klik op "Start Popup Aanval" om te beginnen</p>
             <p>2. Er verschijnen oneindig veel popupvensters</p>
-            <p>3. Druk op <span class="keyboard-key">Ctrl</span> + <span class="keyboard-key">Z</span> om te stoppen</p>
-            <p>4. Alle vensters sluiten automatisch</p>
-        </div>
-
-        <div class="footer">
-            ⚡ Veilig ontworpen - Alleen te stoppen met Ctrl+Z
         </div>
     </div>
 
@@ -242,12 +253,58 @@
         let popupWindows = [];
         let isAttacking = false;
         let windowCounter = 0;
-        let attackSpeed = 100; // milliseconden tussen popups
+        let attackSpeed = 300; // Iets langzamer voor betere controle
 
         // DOM elementen
         const startBtn = document.getElementById('startBtn');
         const statusText = document.getElementById('statusText');
         const counterElement = document.getElementById('counter');
+
+        // Functie om alle popups te sluiten en de aanval te stoppen
+        function stopAttack(source = 'onbekend') {
+            console.log(`Noodstop geactiveerd vanuit: ${source}`);
+            
+            if (!isAttacking && popupWindows.length === 0) return;
+            
+            // Stop met nieuwe popups openen
+            if (attackInterval) {
+                clearInterval(attackInterval);
+                attackInterval = null;
+            }
+            
+            // Sluit alle bestaande popups
+            popupWindows.forEach(popup => {
+                try {
+                    if (popup && !popup.closed) {
+                        popup.close();
+                    }
+                } catch (e) {
+                    // Negeer fouten bij sluiten
+                }
+            });
+            
+            // Leeg de array
+            popupWindows = [];
+            windowCounter = 0;
+            isAttacking = false;
+            
+            // Update UI
+            startBtn.disabled = false;
+            statusText.innerHTML = '⏸️ Gestopt';
+            statusText.style.color = '';
+            counterElement.textContent = '0';
+            
+            // Geef visuele feedback in hoofdvenster
+            const shortcutStatus = document.getElementById('shortcutStatus');
+            const originalText = shortcutStatus.textContent;
+            shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
+            shortcutStatus.style.color = '#28a745';
+            
+            setTimeout(() => {
+                shortcutStatus.textContent = originalText;
+                shortcutStatus.style.color = '#dc3545';
+            }, 2000);
+        }
 
         // Functie om een nieuwe popup te openen
         function openPopup() {
@@ -293,6 +350,12 @@
                                     align-items: center;
                                     height: 100vh;
                                     overflow: hidden;
+                                    animation: pulse 2s infinite;
+                                }
+                                @keyframes pulse {
+                                    0% { opacity: 1; }
+                                    50% { opacity: 0.9; }
+                                    100% { opacity: 1; }
                                 }
                                 h1 {
                                     font-size: 2em;
@@ -302,24 +365,70 @@
                                 .counter {
                                     font-size: 1.2em;
                                     opacity: 0.9;
+                                    margin-bottom: 20px;
+                                }
+                                .shortcut-box {
+                                    background: rgba(0,0,0,0.2);
+                                    padding: 15px 25px;
+                                    border-radius: 50px;
+                                    border: 2px solid white;
+                                    margin: 20px 0;
+                                    font-size: 1.3em;
+                                    font-weight: bold;
                                 }
                                 .warning {
                                     position: absolute;
-                                    bottom: 10px;
-                                    font-size: 0.8em;
-                                    opacity: 0.7;
+                                    bottom: 20px;
+                                    font-size: 0.9em;
+                                    opacity: 0.8;
+                                }
+                                .key {
+                                    background: rgba(255,255,255,0.3);
+                                    padding: 5px 10px;
+                                    border-radius: 5px;
+                                    margin: 0 5px;
+                                    font-family: monospace;
+                                    font-size: 1.2em;
                                 }
                             </style>
                         </head>
                         <body>
                             <h1>⚠️ Popup #${popupNumber}</h1>
                             <div class="counter">Deel van de oneindige aanval</div>
-                            <div class="warning">Druk Ctrl+Z in hoofdvenster om te stoppen</div>
+                            <div class="shortcut-box">
+                                Niet te stoppen - Jammer sukkel
+                            </div>
+                            <div class="warning">Deze popup luistert niet naar de noodstop!</div>
+                            
                             <script>
-                                // Voorkom dat de popup zichzelf sluit
+                                // CTRL+Z LISTENER IN DE POPUP ZELF
+                                document.addEventListener('keydown', function(e) {
+                                    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                                        e.preventDefault();
+                                        
+                                        // Geef visuele feedback in de popup
+                                        document.body.style.background = '#28a745';
+                                        document.body.innerHTML = '<h1>✅ NOODSTOP</h1><p>Alle vensters sluiten...</p>';
+                                        
+                                        // Stuur signaal naar hoofdvenster (via window.opener)
+                                        if (window.opener && !window.opener.closed) {
+                                            try {
+                                                // Roep de stop functie aan in het hoofdvenster
+                                                window.opener.stopAttack('popup #' + ${popupNumber});
+                                            } catch(err) {
+                                                console.log('Kon hoofdvenster niet bereiken', err);
+                                            }
+                                        }
+                                    }
+                                });
+                                
+                                // Voorkom dat de popup per ongeluk wordt gesloten
                                 window.onbeforeunload = function() {
-                                    return "Deze popup hoort bij de aanval";
+                                    return "Deze popup hoort bij de aanval. Niet stopbaar...";
                                 };
+                                
+                                // Focus automatic op de popup voor directe toetsregistratie
+                                window.focus();
                             <\/script>
                         </body>
                         </html>
@@ -352,7 +461,7 @@
             // Test of popups werken
             const testPopup = window.open('', 'test', 'width=1,height=1');
             if (!testPopup || testPopup.closed) {
-                alert('⚠️ Popup-blocker gedetecteerd!\n\nSchakel je popup-blocker uit om deze demo te kunnen gebruiken.\n\nIn de meeste browsers kun je tijdelijk popups toestaan voor deze site.');
+                alert('⚠️ Popup-blocker gedetecteerd.');
                 return;
             }
             testPopup.close();
@@ -369,80 +478,38 @@
             attackInterval = setInterval(openPopup, attackSpeed);
         }
 
-        // Functie om alle popups te sluiten en de aanval te stoppen
-        function stopAttack() {
-            if (!isAttacking && popupWindows.length === 0) return;
-            
-            // Stop met nieuwe popups openen
-            if (attackInterval) {
-                clearInterval(attackInterval);
-                attackInterval = null;
-            }
-            
-            // Sluit alle bestaande popups
-            popupWindows.forEach(popup => {
-                try {
-                    if (popup && !popup.closed) {
-                        popup.close();
-                    }
-                } catch (e) {
-                    // Negeer fouten bij sluiten
-                }
-            });
-            
-            // Leeg de array
-            popupWindows = [];
-            windowCounter = 0;
-            isAttacking = false;
-            
-            // Update UI
-            startBtn.disabled = false;
-            statusText.innerHTML = '⏸️ Gestopt';
-            statusText.style.color = '';
-            counterElement.textContent = '0';
-        }
-
         // Event listener voor de start knop
         startBtn.addEventListener('click', startAttack);
 
-        // Event listener voor Ctrl+Z
+        // Event listener voor Ctrl+Z in HOOFDVENSTER
         document.addEventListener('keydown', (e) => {
-            // Ctrl+Z (of Cmd+Z op Mac)
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-                e.preventDefault(); // Voorkom de standaard undo actie
-                stopAttack();
-                
-                // Geef visuele feedback
-                const shortcutStatus = document.getElementById('shortcutStatus');
-                const originalText = shortcutStatus.textContent;
-                shortcutStatus.textContent = '✅ NOODSTOP GEACTIVEERD';
-                shortcutStatus.style.color = '#28a745';
-                
-                setTimeout(() => {
-                    shortcutStatus.textContent = originalText;
-                    shortcutStatus.style.color = '#dc3545';
-                }, 2000);
+                e.preventDefault();
+                stopAttack('hoofdvenster');
             }
         });
+
+        // Maak de stop functie globaal beschikbaar voor popups
+        window.stopAttack = stopAttack;
 
         // Voorkom dat de pagina per ongeluk wordt verlaten tijdens een aanval
         window.addEventListener('beforeunload', (e) => {
             if (isAttacking) {
                 e.preventDefault();
-                e.returnValue = 'Er is nog een popup aanval bezig. Weet je zeker dat je wilt stoppen?';
+                e.returnValue = 'Druk op annuleren om te stoppen.';
                 return e.returnValue;
             }
         });
 
         // Cleanup bij verlaten van de pagina
         window.addEventListener('unload', () => {
-            stopAttack();
+            stopAttack('unload');
         });
 
         // Extra veiligheid: stop aanval als de pagina verborgen wordt
         document.addEventListener('visibilitychange', () => {
             if (document.hidden && isAttacking) {
-                stopAttack();
+                stopAttack('visibilitychange');
             }
         });
     </script>
